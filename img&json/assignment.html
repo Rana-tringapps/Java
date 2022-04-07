@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="Image and Json file Uploader" content="width=device-width, initial-scale=1.0">
+    <title>File_uploader</title>
+</head>
+<body>
+<center>
+<body style="color:red;">
+    <h2 style="color:#00264d;">Image and Json file Uploader</h2>
+
+<form action="blank.html" target="_blank">
+upload image
+<input type="file" id="image" accept="image/*" required><br>
+<br>
+upload json
+<input type="file" id="json" accept=".json" required><br>
+<br>
+<div>
+    <input type="submit">
+</div>
+</form>
+<script>
+    document.querySelector("#image").addEventListener("change",function(){
+    const reader=new FileReader();
+    reader.addEventListener("load",()=>{
+    localStorage.setItem("recent-image", reader.result);
+    }); 
+    reader.readAsDataURL(this.files[0]);
+    });
+    document.getElementById("json").addEventListener("change", function() {
+      var file = document.getElementById("json").files[0];
+      var fileread = new FileReader();
+      fileread.onload = function(e) {
+        var content = e.target.result;
+        var data = JSON.parse(content); 
+        localStorage.setItem("text", JSON.stringify(data));
+      };
+      fileread.readAsText(file);
+    });
+    </script>
+</body>
+</html>
