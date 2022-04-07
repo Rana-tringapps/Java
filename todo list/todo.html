@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ToDo list</title>
+    <link rel ="stylesheet" href="./style.css">
+</head>
+<body>
+    <center>
+    <h3><b><i>My To Do List</i> </b> </h3>
+    <div class="mymyitems" >
+      <input type="text" id="myInput" placeholder="my to do list">
+      <br><br>
+      <button id="addbtn" onclick="addevent()" >Add</button>
+      </div>
+      <div class="todotodoevent">
+          <ul id="mytodo"> 
+
+          </ul>
+      </div>
+      <div class="buttons">
+        <button class="showsave" id="showsave"onclick="Showsaved()">Showsaved</button>
+        <button class="save" id="save" onclick="save()">Save</button>
+        <button class="empty" id="empty" onclick="empty()">Empty</button>
+      </div>      
+    </div>
+    <script>
+        function addevent(){
+            var mytodo = document.getElementById("mytodo");
+            var text = document.getElementById("myInput").value;
+            if(text=='')
+            {
+                alert("Please Add an todoevent ")
+            }
+          
+            else{
+            document.getElementById("myInput").value = "";
+            var list = document.createElement("li");
+            list.innerHTML=text;
+            list.className = "l";
+            list.addEventListener('click', function(){
+                list.classList.toggle('completed');
+            })
+            mytodo.appendChild(list);
+        }
+        }
+
+        function empty(){
+            var elements = document.querySelectorAll(".l");
+            for(var x of elements){
+                x.remove();
+            }
+        }
+
+        function clearComplete(){
+            var elements = document.querySelectorAll(".completed");
+            for(var x of elements){
+                x.remove();
+            }
+        }
+
+        function save(){
+            var saveList = document.getElementById("mytodo").innerHTML;
+            localStorage.setItem("saveList", JSON.stringify(saveList));
+        }
+
+        function Showsaved(){
+            var savedList = localStorage.getItem("saveList");
+            document.getElementById("mytodo").innerHTML = JSON.parse(savedList);
+        }
+    </script>
+</body>
+</html>
